@@ -1,8 +1,7 @@
-import sys
 import spotipy
 import spotipy.util as util
 
-## Basic user authorization and printing the saved tracks
+# Basic user authorization and printing the saved tracks
 scope = "user-library-read"
 username = "55kjweb2cok4nobnlxqsaph28"
 token = util.prompt_for_user_token(
