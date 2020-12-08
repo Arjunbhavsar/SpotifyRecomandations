@@ -1,70 +1,57 @@
 import spotipy
 import os
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from spotify_manager.utils.helper import getTrivialInfo, getSongList
+
+from spotify_manager.utils.helper import get_audio_features, get_feature_lists
+
+columns = (
+    "songName",
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "valence",
+    "instrumentalness",
+    "tempo",
+)
 
 
 @api_view(["GET"])
 def get_liked_disliked_graphs(request, user_id):
     sp = spotipy.Spotify(auth=os.environ["AUTH_TOKEN"])
-    playlist_dict = {
-        "Liked": "3s3OCt230DDEIGX8xOY58A",
-        "Dislike": "7I2vgcXF2DBLsmC7EqahC0",
-    }
-    liked_id = playlist_dict["Liked"]
-    dislikes_id = playlist_dict["Dislike"]
-
-    likedplay = sp.playlist(playlist_id=liked_id)
-    dislikeplay = sp.playlist(playlist_id=dislikes_id)
-
-    column = (
-        "songName",
-        "danceability",
-        "energy",
-        "loudness",
-        "speechiness",
-        "acousticness",
-        "valence",
-        "instrumentalness",
-        "tempo",
-    )
-    playlistList = [likedplay, dislikeplay]
     n_bins = 20
     fig, axs = plt.subplots(figsize=(24, 8), nrows=2, ncols=4)
     axs = axs.flatten()
-    dfTrivialList = getTrivialInfo(playlistList)
-    songIdsList = getSongList(dfTrivialList)
-    songIds1 = songIdsList[0]
-    songIds2 = songIdsList[1]
 
-    audioFeatures1 = sp.audio_features(tracks=songIds1)
-    audioFeatures2 = sp.audio_features(tracks=songIds2)
+    audio_features1, audio_features2 = get_audio_features(sp=sp)
 
-    for song1, song2 in zip(audioFeatures1, audioFeatures2):
+    for song1, song2 in zip(audio_features1, audio_features2):
         if song1 is None:
-            audioFeatures1.remove(song1)
+            audio_features1.remove(song1)
         if song2 is None:
-            audioFeatures2.remove(song2)
+            audio_features2.remove(song2)
 
     index = 0
     result_fig = None
-    for feature in column[1:]:
+    for feature in columns[1:]:
         ax = axs[index]
         ax.set_title(feature)
-        featureListToPlot1 = []
-        featureListToPlot2 = []
+        feature_list_to_plot1 = []
+        feature_list_to_plot2 = []
 
-        for song1, song2 in zip(audioFeatures1, audioFeatures2):
-            featureListToPlot1.append(song1[feature])
-            featureListToPlot2.append(song2[feature])
+        for song1, song2 in zip(audio_features1, audio_features2):
+            feature_list_to_plot1.append(song1[feature])
+            feature_list_to_plot2.append(song2[feature])
 
         sns.distplot(
-            featureListToPlot1,
+            feature_list_to_plot1,
             hist=True,
             bins=n_bins,
             color="blue",
@@ -73,10 +60,10 @@ def get_liked_disliked_graphs(request, user_id):
             ax=ax,
         )
         result_fig = sns.distplot(
-            featureListToPlot2,
+            feature_list_to_plot2,
             hist=True,
             bins=n_bins,
-            color="pink",
+            color="green",
             hist_kws={"edgecolor": "yellow"},
             kde_kws={"linewidth": 4},
             ax=ax,
@@ -84,4 +71,34 @@ def get_liked_disliked_graphs(request, user_id):
         index += 1
 
     result_fig = result_fig.get_figure()
-    return Response(data=result_fig, content_type="image/png", status=status.HTTP_200_OK)
+    saved_image_location = "/{0}/{1}/".format("tmp", user_id)
+    os.makedirs(saved_image_location, exist_ok=True)
+    result_fig.savefig(saved_image_location + "likes_dislikes.png")
+    plt.ioff()
+    plt.close()
+
+    return Response(
+        data={
+            "image": saved_image_location + "likes_dislikes.png",
+            "description": "something something something",
+        },
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["GET"])
+def get_acoustics_chart(request, user_id):
+    sp = spotipy.Spotify(auth=os.environ["AUTH_TOKEN"])
+    audio_features1, audio_features2 = get_audio_features(sp=sp)
+    saved_image_location = get_feature_lists(
+        audio_features1=audio_features1,
+        audio_features2=audio_features2,
+        user_id=user_id,
+    )
+    return Response(
+        data={
+            "image": saved_image_location,
+            "description": "something something something",
+        },
+        status=status.HTTP_200_OK,
+    )
