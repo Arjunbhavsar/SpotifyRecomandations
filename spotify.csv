@@ -1,0 +1,10 @@
+,name,album,artist,release_date,length,popularity,danceability,acousticness,danceability,energy,instrumentalness,liveness,loudness,speechiness,tempo,time_signature
+0,"Darkhaast (feat. Arijit Singh, Sunidhi Chauhan)",Shivaay,Mithoon,2016-10-07,374205,61,0.523,0.813,0.523,0.557,0.000581,0.0958,-7.799,0.0293,111.766,4
+1,Phir Se Ud Chala,Rockstar,A.R. Rahman,2011-10-01,268833,60,0.647,0.657,0.647,0.656,0.000163,0.343,-8.632,0.0354,119.965,4
+2,Tere Naina,Chandni Chowk To China,Various Artists,2008-12-04,255721,58,0.758,0.544,0.758,0.377,7.65e-05,0.0904,-10.224,0.0511,139.932,4
+3,Baatein Kuch Ankahee,Life In A Metro (Original Motion Picture Soundtrack),Pritam,2007-03-17,275413,49,0.658,0.156,0.658,0.536,2.8e-06,0.176,-7.605,0.0277,121.957,4
+4,Baatein Kuch Ankahee,Life In A Metro (Original Motion Picture Soundtrack),Pritam,2007-03-17,275413,49,0.658,0.156,0.658,0.536,2.8e-06,0.176,-7.605,0.0277,121.957,4
+5,Aazaadiyan (Pairon Ki Bediyan),Udaan,Amit Trivedi,2010-06-29,337902,47,0.548,0.389,0.548,0.466,4.01e-05,0.125,-7.083,0.0242,100.066,4
+6,"Tere Mere (From ""Chef"")","Tere Mere (From ""Chef"")",Armaan Malik,2017-09-11,343544,57,0.373,0.154,0.373,0.672,4.28e-05,0.321,-5.797,0.0326,84.503,4
+7,Choo Lo,Aalas Ka Pedh,The Local Train,2015-09-25,233630,60,0.512,0.0265,0.512,0.695,0.00815,0.146,-6.349,0.0271,145.957,4
+8,Believe,Believe,When Chai Met Toast,2018-09-07,236700,48,0.25,0.16,0.25,0.618,0.0169,0.109,-7.705,0.0378,66.632,4
