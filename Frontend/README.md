@@ -97,17 +97,8 @@ Spotify Recomendations
         │   ├── Components.js
         │   └── Sections
         │       ├── SectionBasics.js
-        │       ├── SectionCarousel.js
-        │       ├── SectionCompletedExamples.js
-        │       ├── SectionDownload.js
-        │       ├── SectionExamples.js
-        │       ├── SectionJavascript.js
-        │       ├── SectionLogin.js
-        │       ├── SectionNavbars.js
-        │       ├── SectionNotifications.js
-        │       ├── SectionPills.js
-        │       ├── SectionTabs.js
-        │       └── SectionTypography.js
+        |       ├── Commonplots.js
+        |       ├── UserPlots.js
         ├── LandingPage
         │   ├── LandingPage.js
         │   └── Sections
