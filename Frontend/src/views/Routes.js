@@ -14,6 +14,7 @@ import AboutUs from "views/Components/Sections/Aboutus.js"
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Commonplots from "views/Components/Sections/Commonplots.js";
+import UserDataPlots from "./Components/Sections/UserDataPlots.js";
 
 var hist = createBrowserHistory();
 
@@ -40,7 +41,7 @@ export default function Routes(props) {
             <Route path="/login-page"   component={LoginPage} />
             <Route path="/aboutus"      component={AboutUs} />
             <Route path="/commonPlots"  component={Commonplots} />
-            <Route path="/userVisuals"  component={Components} />
+            <Route path="/userVisuals"  component={UserDataPlots} />
             <Route path="/"             component={Components} />
             </Switch>
 
