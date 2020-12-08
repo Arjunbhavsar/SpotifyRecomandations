@@ -1,7 +1,5 @@
 
 
-![Product Presentation Image](https://s3.amazonaws.com/creativetim_bucket/products/83/original/opt_mk_react_thumbnail.jpg)
-
 **[Material Kit React](https://demos.creative-tim.com/material-kit-react/#/?ref=mkr-readme)** is a Free Material-UI Kit with a fresh, new design inspired by Google's material design and is was developed using [create-react-app](https://www.npmjs.com/package/create-react-app). You asked for it, so we built it. It's a great pleasure to introduce to you the material concepts in an easy to use and beautiful set of components. Along with the restyling of the Material-UI elements, you will find three fully-coded example pages, to help you design your next project.
 
 **[Material Kit React](https://demos.creative-tim.com/material-kit-react/#/?ref=mkr-readme)** makes use of light, surface and movement. It uses a deliberate color choice, edge-to-edge imagery and large scale typography. The general layout resembles sheets of paper following multiple different layers, so that the depth and order is obvious. The navigation stays mainly on the left and the actions on the right.
@@ -25,36 +23,6 @@ This new design has elements that have been the result of research regarding ink
 * [Useful Links](#useful-links)
 
 
-## Versions
-
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/html-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/material-kit?ref=mkr-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/vue-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/vue-material-kit?ref=mkr-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/material-kit-react?ref=mkr-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-native-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/material-kit-react-native?ref=mkr-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/figma-logo.jpg?raw=true" width="60" height="60" />](https://demos.creative-tim.com/material-kit-figma/presentation.html?ref=mkr-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/wordpress-logo.jpg?raw=true" width="60" height="60" />](https://themeisle.com/themes/hestia/?ref=creativetim)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/photoshop-logo.jpg" width="60" height="60" />](https://github.com/creativetimofficial/material-kit/tree/photoshop)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/sketch-logo.jpg" width="60" height="60" />](https://github.com/creativetimofficial/material-kit/tree/sketch)
-
-
-
-
-
-
-| HTML | React | Vue  |
-| --- | --- | ---  |
-| [![Material Kit  HTML](https://github.com/creativetimofficial/public-assets/blob/master/material-kit/material-kit.jpeg?raw=true)](https://www.creative-tim.com/product/material-kit)  | [![Material Kit  React](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/material-kit-react.jpeg?raw=true)](https://www.creative-tim.com/product/material-kit-react)  | [![Vue Material Kit](https://github.com/creativetimofficial/public-assets/blob/master/vue-material-kit/vue-material-kit.jpeg?raw=true)](https://www.creative-tim.com/product/vue-material-kit)
-
-| React Native | Figma | WordPress |
-| ---  | --- | --- |
-| [![Material Kit React Native](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react-native/opt_mkrn_thumbnail.jpg?raw=true)](https://www.creative-tim.com/product/material-kit-react-native) | [![Material Kit Figma](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-figma/material-kit-figma.jpg?raw=true)](https://demos.creative-tim.com/material-kit-figma/presentation.html) | [![Material Kit WordPress](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-wordpress/opt_smd_thumbnail.jpg?raw=true)](https://themeisle.com/themes/hestia/?ref=creativetim)
-
-## Demo
-
-| Buttons | Inputs | Navbars  |
-| --- | --- | ---  |
-| [![Buttons](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/buttons.png?raw=true)](https://demos.creative-tim.com/material-kit/#/)  | [![Inputs](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/inputs.png?raw=true)](https://demos.creative-tim.com/material-kit-react/#/)  | [![Navbar](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/navbars.png?raw=true)](https://demos.creative-tim.com/material-kit-react/#/)  
-
-| Login Page | Landing Page | Profile Page  |
-| --- | --- | ---  |
-| [![Login Page](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-kit-react/login-page.png)](https://demos.creative-tim.com/material-kit/#/login-page)  | [![Landing Page](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/landing-page.png?raw=true)](https://demos.creative-tim.com/material-kit-react/#/landing-page)  | [![Profile Page](https://github.com/creativetimofficial/public-assets/blob/master/material-kit-react/profile-page.png?raw=true)](https://demos.creative-tim.com/material-kit/#/profile-page)  
-
-[View More](https://demos.creative-tim.com/material-kit/index.html)
-
-
 ## Quick start
 
 - `npm i material-kit-react`
@@ -62,8 +30,6 @@ This new design has elements that have been the result of research regarding ink
 - [Download from Creative Tim](https://www.creative-tim.com/product/material-kit-react).
 - Install with [Bower](https://bower.io/): ```bower install material-kit-react```.
 - Clone the repo: `git clone https://github.com/creativetimofficial/material-kit-react.git`.
-
-
 
 
 ## File Structure
