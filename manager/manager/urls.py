@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path
 
 from spotify_manager.views.follow_create import get_follow_data
-from spotify_manager.views.mongo_dump import decompress_and_upload_to_mongo
+from spotify_manager.views.mongo_dump import (
+    decompress_and_upload_to_mongo,
+    # dump_streaming_history,
+)
 
 urlpatterns = [
     # url(r"^follow/create", create_follow),
     url(r"^user/dump", decompress_and_upload_to_mongo),
+    # url(r"^user/sh/dump", dump_streaming_history),
     url(r"^user/(?P<user_id>\w+)/follow", get_follow_data),
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 ]

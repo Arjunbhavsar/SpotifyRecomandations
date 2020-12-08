@@ -6,7 +6,7 @@ class Follow(DynamicDocument):
     followerCount = fields.IntField(null=False)
     followingUsersCount = fields.IntField(null=False)
     followingArtists = fields.ListField()
-    user_id = fields.IntField()
+    userId = fields.IntField()
 
     meta = {
         "collection": "follow"
