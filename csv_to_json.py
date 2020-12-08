@@ -1,7 +1,7 @@
 # Datasets used -
-# https://www.kaggle.com/leonardopena/top-50-spotify-songs-by-each-country
-# https://www.kaggle.com/leonardopena/top50spotify2019
-# https://www.kaggle.com/leonardopena/top-spotify-songs-from-20102019-by-year
+# top 50 spotify songs by country -https://www.kaggle.com/leonardopena/top-50-spotify-songs-by-each-country
+# top 50 spotify songs in 2019 - https://www.kaggle.com/leonardopena/top50spotify2019
+# top spotify songs in 2010-2019 - https://www.kaggle.com/leonardopena/top-spotify-songs-from-20102019-by-year
 
 import pandas as pd
 from pprint import pprint
