@@ -26,6 +26,7 @@ columns = (
 @api_view(["GET"])
 def get_liked_disliked_graphs(request, user_id):
     sp = spotipy.Spotify(auth=os.environ["AUTH_TOKEN"])
+    # print("\n\n{}".format(request.auth))
     n_bins = 20
     fig, axs = plt.subplots(figsize=(24, 8), nrows=2, ncols=4)
     axs = axs.flatten()

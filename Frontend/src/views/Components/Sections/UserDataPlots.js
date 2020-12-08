@@ -17,7 +17,9 @@ import {
     warningColor,
     dangerColor
   } from "assets/jss/material-kit-react.js";
-  
+
+import axios from "axios";
+
 
 const classes = theme => ({
 
@@ -79,10 +81,27 @@ class UserDataPlots extends Component{
             usertoken:''
         }
         this.getUserData = this.getUserData.bind(this);
+
     }
 
-    getUserData(){
+    // handleSuccessResponse(){
+    //
+    // }
 
+    getUserData(){
+        let user_id = sessionStorage.getItem('authenticatedUserId');
+        let user_token = sessionStorage.getItem('authenticatedUsertoken');
+		return axios.get('http://localhost:8000/user/' + user_id + '/likes' ,
+		{
+			headers: {
+				Authorization: user_token
+			}
+		}).then( console.log(response))
+		    // response => this.handleSuccessResponse(response))
+            .catch((error) => {
+                console.log("ALLAL", error);
+                console.log("data", { user });
+            })
     }
 
 
@@ -129,6 +148,10 @@ class UserDataPlots extends Component{
                     
                 </GridContainer>
                 <GridContainer />
+            <Button type="Button" fullWidth variant="contained" color="primary"
+                                onClick={this.getUserData()}>
+                                    Fetch
+                            </Button>
                 </div>
                 <div className={classes.space50} />
             </div>

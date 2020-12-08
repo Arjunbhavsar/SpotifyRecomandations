@@ -65,12 +65,11 @@ export default class SpotifyLoginComponent extends Component {
                     console.log(res)
                     sessionStorage.setItem('authenticatedUserId',res.data.id)
                     sessionStorage.setItem('authenticatedUserEmail',res.data.email)
+                    this.props.history.push("/")
                 }
             })
             .catch(console.log("Error fetching user details"))
         }
-            
-        
     }
     onFailure = () => console.log("Failure");
 
