@@ -1,0 +1,56 @@
+asgiref==3.3.1
+bokeh @ file:///opt/concourse/worker/volumes/live/17495d14-5b57-4c12-6d6b-201edb177b9e/volume/bokeh_1603297848703/work
+certifi==2020.11.8
+chardet==3.0.4
+click==7.1.2
+cloudpickle @ file:///tmp/build/80754af9/cloudpickle_1598884132938/work
+cycler==0.10.0
+cytoolz==0.11.0
+dask @ file:///tmp/build/80754af9/dask-core_1602083700509/work
+distributed @ file:///opt/concourse/worker/volumes/live/d87b0bcd-2b15-4392-4b3c-5a479980c996/volume/distributed_1605066517944/work
+Django==3.0.5
+django-cors-headers==3.5.0
+django-extensions==3.1.0
+django-rest-framework-mongoengine==3.4.1
+djangorestframework==3.12.2
+djongo==1.3.3
+dnspython==2.0.0
+fsspec @ file:///tmp/build/80754af9/fsspec_1602684995936/work
+gunicorn==20.0.4
+HeapDict==1.0.1
+idna==2.10
+Jinja2==2.11.2
+kiwisolver==1.3.1
+locket==0.2.0
+MarkupSafe==1.1.1
+matplotlib==3.3.3
+mkl-fft==1.2.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+mongoengine==0.21.0
+msgpack==1.0.0
+numpy==1.19.4
+olefile==0.46
+packaging @ file:///tmp/build/80754af9/packaging_1606930849755/work
+pandas==1.1.4
+partd==1.1.0
+Pillow @ file:///opt/concourse/worker/volumes/live/95e97a5f-0d90-45c8-4080-207143da6ebf/volume/pillow_1603822285720/work
+psutil @ file:///opt/concourse/worker/volumes/live/abb7a219-3a4a-4ff9-4158-148060faae29/volume/psutil_1598370243710/work
+pymongo==3.11.1
+pyparsing==2.4.7
+python-dateutil==2.8.1
+pytz @ file:///tmp/build/80754af9/pytz_1606604771399/work
+PyYAML==5.3.1
+requests==2.25.0
+scipy==1.5.4
+seaborn==0.11.0
+six @ file:///opt/concourse/worker/volumes/live/f983ba11-c9fe-4dff-7ce7-d89b95b09771/volume/six_1605205318156/work
+sortedcontainers @ file:///tmp/build/80754af9/sortedcontainers_1606865132123/work
+spotipy==2.16.1
+sqlparse==0.2.4
+tblib @ file:///tmp/build/80754af9/tblib_1597928476713/work
+toolz @ file:///tmp/build/80754af9/toolz_1601054250827/work
+tornado @ file:///opt/concourse/worker/volumes/live/d531d395-893c-4ca1-6a5f-717b318eb08c/volume/tornado_1606942307627/work
+typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
+urllib3==1.26.2
+zict==2.0.0
