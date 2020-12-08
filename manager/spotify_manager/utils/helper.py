@@ -21,35 +21,35 @@ columns = (
 playlist_dict = {"Liked": "3s3OCt230DDEIGX8xOY58A", "Dislike": "7I2vgcXF2DBLsmC7EqahC0"}
 
 
-def getTrivialInfo(playlistList):
-    dfTrivialList = []
-    for playlist in playlistList:
+def get_trivial_info(playlist_list):
+    df_trivial_list = []
+    for playlist in playlist_list:
         index = 0
-        dfTrivial = pd.DataFrame(
+        df_trivial = pd.DataFrame(
             columns=("SongName", "SongId", "SongArtist"),
             index=np.arange(0, len(playlist["tracks"]["items"])),
         )
         for item in playlist["tracks"]["items"]:
             track = item["track"]
-            dfTrivial.loc[index] = [
+            df_trivial.loc[index] = [
                 track["name"],
                 track["id"],
                 track["artists"][0]["name"],
             ]
             index += 1
-        dfTrivialList.append(dfTrivial)
-    return dfTrivialList
+        df_trivial_list.append(df_trivial)
+    return df_trivial_list
 
 
-def getSongList(dfTrivialList):
-    songIdsList = []
-    for dfTrivial in dfTrivialList:
-        songIds = list(dfTrivial["SongId"])
-        songIdsList.append(songIds)
-    return songIdsList
+def get_song_list(df_trivial_list):
+    song_ids_list = []
+    for dfTrivial in df_trivial_list:
+        song_ids = list(dfTrivial["SongId"])
+        song_ids_list.append(song_ids)
+    return song_ids_list
 
 
-def getFeaturesList(
+def get_features_list(
     dfTrivialList,
     songIdsList,
     sp,
@@ -65,13 +65,13 @@ def getFeaturesList(
         "Tempo",
     ),
 ):
-    dfFeaturesList = []
+    df_features_list = []
     for dfTrivial, songIds in zip(dfTrivialList, songIdsList):
         index = 0
-        audioFeatures = sp.audio_features(tracks=songIds)
+        audio_features = sp.audio_features(tracks=songIds)
         categories = columns[1:]
         dfFeatures = pd.DataFrame(columns=columns, index=np.arange(0, len(songIds)))
-        for i, song in enumerate(audioFeatures):
+        for i, song in enumerate(audio_features):
             dfFeatures.loc[index] = [
                 list(dfTrivial["SongName"])[i],
                 song["danceability"],
@@ -84,11 +84,11 @@ def getFeaturesList(
                 song["tempo"],
             ]
             index += 1
-        dfFeaturesList.append(dfFeatures)
-    return dfFeaturesList
+        df_features_list.append(dfFeatures)
+    return df_features_list
 
 
-def getFeaturesToUse(dfFeaturesList, categories=None):
+def get_features_to_use(df_features_list, categories=None):
     if categories is None:
         categories = [
             "Danceability",
@@ -97,14 +97,14 @@ def getFeaturesToUse(dfFeaturesList, categories=None):
             "Acousticness",
             "Valence",
         ]
-    featuresToUseList = []
-    for dfFeatures in dfFeaturesList:
+    features_to_use_list = []
+    for dfFeatures in df_features_list:
         features = dfFeatures[categories]
-        featuresToUseList.append(features)
-    return featuresToUseList
+        features_to_use_list.append(features)
+    return features_to_use_list
 
 
-def featurePreprocessing(song, categories=None):
+def feature_preprocessing(song, categories=None):
     if categories is None:
         categories = [
             "Danceability",
@@ -124,8 +124,8 @@ def get_audio_features(sp) -> tuple:
     dislikes_plays = sp.playlist(playlist_id=dislikes_id)
 
     playlist_list = [liked_plays, dislikes_plays]
-    df_trivial_list = getTrivialInfo(playlist_list)
-    song_ids_list = getSongList(df_trivial_list)
+    df_trivial_list = get_trivial_info(playlist_list)
+    song_ids_list = get_song_list(df_trivial_list)
     song_ids1 = song_ids_list[0]
     song_ids2 = song_ids_list[1]
 
@@ -200,16 +200,14 @@ def get_feature_lists(audio_features1, audio_features2, user_id) -> str:
     ax = plt.subplot(111, polar=True)
     ax.set_theta_offset(pi)
     ax.set_theta_direction(-1)
-    print(len(angles), len(categories))
 
-    plt.xticks(angles, categories)
+    plt.xticks(angles[:-1], categories)
 
     ax.set_rlabel_position(0)
     plt.yticks([0, 0.5, 1], ["0", "0.5", "1"], color="grey", size=7)
     plt.ylim(0, 1)
 
-    # Ind1
-    colors = ["b", "pink"]
+    colors = ["b", "green"]
     for i, key in enumerate(playlist_dict.keys()):
         if i < 4:
             values = list(df_features_list[i])
