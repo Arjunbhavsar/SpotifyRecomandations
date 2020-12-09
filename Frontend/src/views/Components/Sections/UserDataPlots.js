@@ -78,16 +78,10 @@ class UserDataPlots extends Component{
         super(props)
         this.state = {
             userId:'',
-            usertoken:'',
-            image:''
+            usertoken:''
         }
         this.getUserData = this.getUserData.bind(this);
-
     }
-
-    // handleSuccessResponse(){
-    //
-    // }
 
     getUserData(){
         let user_id = sessionStorage.getItem('authenticatedUserId');
@@ -98,16 +92,14 @@ class UserDataPlots extends Component{
           headers: {
             Authorization: user_token
           }
-        }).then( response => {
-            this.setState({image: response.image})
-            console.log(response)})
+        }).then( response=> console.log(response))
           .catch((error) => {
               console.log("ALLAL", error);})
         }
 
 
     render(){
-        
+
         const { classes } = this.props;
         return (
 
@@ -120,9 +112,9 @@ class UserDataPlots extends Component{
                 'z-index':'-1'
                 }}>
             <div className={classes.container}>
-                
+
                 <div className={classes.space50} />
-                <div id="images" >  
+                <div id="images" >
                 <div className={classes.title}>
                     <h2>Plots</h2>
                 </div>
@@ -146,14 +138,16 @@ class UserDataPlots extends Component{
                         <h4> A pie chart is a circular graph that is broken down into segments (i.e slices of pie). This Pie chart shows the top song genre between years 2010-2019. Out of total 603 songs, the most popular genre dance pop has 327 songs followed by pop genre which has count 60. This chart shows the dominance of pop music in popular tracks.</h4>
                     </GridItem>
                     </GridContainer>
-                    
+
                 </GridContainer>
                 <GridContainer />
-            <button type="Button" fullWidth variant="contained" color="primary"
-                                onClick={this.getUserData()}>
-                                    Fetch
-                            </button>
-                                    <img className="image" src={this.state.image} alt="sfnkjsnd"/>
+                <button
+                    type="Button" fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={this.getUserData()}>
+                  Fetch
+                </button>
                 </div>
                 <div className={classes.space50} />
             </div>
