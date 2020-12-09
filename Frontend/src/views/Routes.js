@@ -36,7 +36,7 @@ export default function Routes(props) {
                 {...rest}
             />
             <Switch>
-            <Route path="/landing-page" component={LandingPage} />
+            <Route path="/landing-page" component={LandingPage}/>
             <Route path="/profile-page" component={ProfilePage} />
             <Route path="/login-page"   component={LoginPage} />
             <Route path="/aboutus"      component={AboutUs} />

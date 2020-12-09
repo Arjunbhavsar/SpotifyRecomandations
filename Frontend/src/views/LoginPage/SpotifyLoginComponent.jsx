@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SpotifyLogin from 'react-spotify-login';
+import LandingPage from "../LandingPage/LandingPage";
 
 import axios from 'axios'
 
@@ -65,7 +66,7 @@ export default class SpotifyLoginComponent extends Component {
                     console.log(res)
                     sessionStorage.setItem('authenticatedUserId',res.data.id)
                     sessionStorage.setItem('authenticatedUserEmail',res.data.email)
-                    this.props.history.push("/")
+                    //this.props.history.push("/")
                 }
             })
             .catch(console.log("Error fetching user details"))
@@ -77,7 +78,7 @@ export default class SpotifyLoginComponent extends Component {
         let spotifyContent;
 
         if(this.state.isLoggedIn){
-            spotifyContent=null
+            spotifyContent=<LandingPage/>
             
         }else{
             spotifyContent=( 

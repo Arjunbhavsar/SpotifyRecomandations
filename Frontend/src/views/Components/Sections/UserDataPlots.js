@@ -78,7 +78,8 @@ class UserDataPlots extends Component{
         super(props)
         this.state = {
             userId:'',
-            usertoken:''
+            usertoken:'',
+            image:''
         }
         this.getUserData = this.getUserData.bind(this);
 
@@ -91,18 +92,18 @@ class UserDataPlots extends Component{
     getUserData(){
         let user_id = sessionStorage.getItem('authenticatedUserId');
         let user_token = sessionStorage.getItem('authenticatedUsertoken');
-		return axios.get('http://localhost:8000/user/' + user_id + '/likes' ,
-		{
-			headers: {
-				Authorization: user_token
-			}
-		}).then( console.log(response))
-		    // response => this.handleSuccessResponse(response))
-            .catch((error) => {
-                console.log("ALLAL", error);
-                console.log("data", { user });
-            })
-    }
+
+        axios.get('http://localhost:8000/user/' + user_id + '/likes' ,
+        {
+          headers: {
+            Authorization: user_token
+          }
+        }).then( response => {
+            this.setState({image: response.image})
+            console.log(response)})
+          .catch((error) => {
+              console.log("ALLAL", error);})
+        }
 
 
     render(){
@@ -148,10 +149,11 @@ class UserDataPlots extends Component{
                     
                 </GridContainer>
                 <GridContainer />
-            <Button type="Button" fullWidth variant="contained" color="primary"
+            <button type="Button" fullWidth variant="contained" color="primary"
                                 onClick={this.getUserData()}>
                                     Fetch
-                            </Button>
+                            </button>
+                                    <img className="image" src={this.state.image} alt="sfnkjsnd"/>
                 </div>
                 <div className={classes.space50} />
             </div>
