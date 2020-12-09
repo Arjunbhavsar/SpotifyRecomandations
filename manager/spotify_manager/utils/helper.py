@@ -414,7 +414,7 @@ def get_user_track_popularity(list_song_feature, user_id):
     fig.update_layout(
         showlegend=False,
         xaxis_tickangle=-30,
-        title="Distribution of track popularity",
+        title="Distribution of track popularity for each of user's playlists",
         xaxis_title="Playlist",
     )
 
@@ -423,4 +423,39 @@ def get_user_track_popularity(list_song_feature, user_id):
     )
     os.makedirs(saved_image_location, exist_ok=True)
     fig.write_html(saved_image_location + "track_popularity.html")
+    return saved_image_location
+
+
+def get_user_track_release_year(list_song_feature, user_id):
+    list_song_feature["year"] = pd.DatetimeIndex(list_song_feature["release_date"]).year
+    release_year = list_song_feature.groupby("year", as_index=False)["song_id"].count()
+    idx = pd.DataFrame(range(1980, 2021), columns=["Release Year"])
+
+    release_year_new = pd.merge(
+        idx,
+        release_year,
+        how="left",
+        left_on="Release Year",
+        right_on="year",
+        copy=False,
+    )
+    fig = go.Figure(
+        data=go.Bar(
+            name="Number of Song",
+            x=release_year_new["Release Year"],
+            y=release_year_new.song_id,
+            marker_color="rgb(129,180,227)",
+        )
+    )
+    # Change the bar mode
+    fig.update_layout(
+        xaxis_tickangle=-45,
+        title="Number of track distribution by release year",
+        xaxis_title="Year",
+    )
+    saved_image_location = "{0}/{1}/{2}/".format(
+        Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
+    )
+    os.makedirs(saved_image_location, exist_ok=True)
+    fig.write_html(saved_image_location + "track_release.html")
     return saved_image_location

@@ -25,6 +25,7 @@ from spotify_manager.views.visualizations import (
     get_acoustics_chart,
     get_top_artists,
     get_track_popularity,
+    get_track_release_year
 )
 
 urlpatterns = [
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r"^user/(?P<user_id>\w+)/acoustics", get_acoustics_chart),
     url(r"^user/(?P<user_id>\w+)/artists", get_top_artists),
     url(r"^user/(?P<user_id>\w+)/popularity", get_track_popularity),
+    url(r"^user/(?P<user_id>\w+)/release", get_track_release_year),
     # url(r"^user/sh/dump", dump_streaming_history),
     url(r"^user/(?P<user_id>\w+)/follow", get_follow_data),
     path("admin/", admin.site.urls),

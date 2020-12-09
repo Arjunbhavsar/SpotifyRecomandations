@@ -19,6 +19,7 @@ from spotify_manager.utils.helper import (
     get_top_artists_for_user,
     get_song_features,
     get_user_track_popularity,
+    get_user_track_release_year,
 )
 
 columns = (
@@ -189,6 +190,31 @@ def get_track_popularity(request, user_id):
     return Response(
         data={
             "image": base_url + "{0}-{1}".format(user_id, "track_popularity.html"),
+            "description": "something something something",
+        },
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["GET"])
+def get_track_release_year(request, user_id):
+    auth_token = request.META.get("HTTP_AUTHORIZATION", None)
+    sp = spotipy.Spotify(auth=auth_token)
+    list_song_feature = get_song_features(user_id=user_id, sp=sp)
+    saved_image_location = get_user_track_release_year(
+        list_song_feature=list_song_feature, user_id=user_id
+    )
+
+    s3.client.upload_file(
+        saved_image_location + "track_release.html",
+        os.environ["BUCKET_NAME"],
+        "{0}-{1}".format(user_id, "track_release.html"),
+        {"ACL": "public-read", "ContentType": "text/html"},
+    )
+
+    return Response(
+        data={
+            "image": base_url + "{0}-{1}".format(user_id, "track_release.html"),
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
