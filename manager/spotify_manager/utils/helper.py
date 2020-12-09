@@ -1,5 +1,6 @@
 import os
 from math import pi
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
@@ -227,7 +228,9 @@ def get_feature_lists(audio_features1, audio_features2, user_id) -> str:
     # Add legend
     plt.legend(bbox_to_anchor=(0.1, 0.1))
 
-    saved_image_location = "/{0}/{1}/".format("tmp", user_id)
+    saved_image_location = "{0}/{1}/{2}".format(
+        Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
+    )
     os.makedirs(saved_image_location, exist_ok=True)
     plt.savefig(saved_image_location + "acoustics.png")
     plt.close()

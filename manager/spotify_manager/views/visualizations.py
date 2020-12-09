@@ -6,8 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-
+from pathlib import Path
 from spotify_manager.utils.helper import get_audio_features, get_feature_lists
 
 columns = (
@@ -72,7 +71,9 @@ def get_liked_disliked_graphs(request, user_id):
         index += 1
 
     result_fig = result_fig.get_figure()
-    saved_image_location = "/{0}/{1}/".format("tmp", user_id)
+    saved_image_location = "{0}/{1}/{2}".format(
+        Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
+    )
     os.makedirs(saved_image_location, exist_ok=True)
     result_fig.savefig(saved_image_location + "likes_dislikes.png")
     plt.ioff()
