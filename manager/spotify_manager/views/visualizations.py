@@ -25,8 +25,8 @@ columns = (
 
 @api_view(["GET"])
 def get_liked_disliked_graphs(request, user_id):
-    sp = spotipy.Spotify(auth=os.environ["AUTH_TOKEN"])
-    # print("\n\n{}".format(request.auth))
+    auth_token = request.META.get("HTTP_AUTHORIZATION", None)
+    sp = spotipy.Spotify(auth=auth_token)
     n_bins = 20
     fig, axs = plt.subplots(figsize=(24, 8), nrows=2, ncols=4)
     axs = axs.flatten()
@@ -89,7 +89,8 @@ def get_liked_disliked_graphs(request, user_id):
 
 @api_view(["GET"])
 def get_acoustics_chart(request, user_id):
-    sp = spotipy.Spotify(auth=os.environ["AUTH_TOKEN"])
+    auth_token = request.META.get("HTTP_AUTHORIZATION", None)
+    sp = spotipy.Spotify(auth=auth_token)
     audio_features1, audio_features2 = get_audio_features(sp=sp)
     saved_image_location = get_feature_lists(
         audio_features1=audio_features1,

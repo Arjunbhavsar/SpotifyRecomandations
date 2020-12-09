@@ -18,7 +18,10 @@ columns = (
     "tempo",
 )
 
-playlist_dict = {"Liked": "3s3OCt230DDEIGX8xOY58A", "Dislike": "7I2vgcXF2DBLsmC7EqahC0"}
+playlist_dict = {
+    "Liked": "3s3OCt230DDEIGX8xOY58A",
+    "Disliked": "7I2vgcXF2DBLsmC7EqahC0",
+}
 
 
 def get_trivial_info(playlist_list):
@@ -118,7 +121,7 @@ def feature_preprocessing(song, categories=None):
 
 def get_audio_features(sp) -> tuple:
     liked_id = playlist_dict["Liked"]
-    dislikes_id = playlist_dict["Dislike"]
+    dislikes_id = playlist_dict["Disliked"]
 
     liked_plays = sp.playlist(playlist_id=liked_id)
     dislikes_plays = sp.playlist(playlist_id=dislikes_id)
