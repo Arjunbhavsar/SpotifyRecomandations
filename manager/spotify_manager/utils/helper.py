@@ -364,3 +364,63 @@ def get_top_artists_for_user(playlist_artist_filter, user_id):
     os.makedirs(saved_image_location, exist_ok=True)
     fig.write_html(saved_image_location + "top_artists.html")
     return saved_image_location
+
+
+def get_song_features(user_id, sp):
+    user_playlists = get_user_playlists(user_id=user_id, sp=sp)
+    playlists_with_songs = get_user_playlists_songs(
+        user_playlists=user_playlists, user_id=user_id, sp=sp
+    )
+    track_features = get_track_features(tracks=playlists_with_songs, sp=sp)
+    song_feature = pd.merge(
+        playlists_with_songs,
+        track_features,
+        how="left",
+        left_on="song_id",
+        right_on="song_id",
+    )
+    list_song_feature = pd.merge(
+        user_playlists,
+        song_feature,
+        how="left",
+        left_on="spotify_id",
+        right_on="list_id",
+    )
+    list_song_feature["popularity"] = pd.to_numeric(
+        list_song_feature["popularity"], downcast="integer"
+    )
+    return list_song_feature
+
+
+def get_user_track_popularity(list_song_feature, user_id):
+    fig = go.Figure()
+
+    playlists = list_song_feature["list_name"].unique()
+
+    for playlist in playlists:
+        fig.add_trace(
+            go.Box(
+                x=list_song_feature["list_name"][
+                    list_song_feature["list_name"] == playlist
+                ],
+                y=list_song_feature["popularity"][
+                    list_song_feature["list_name"] == playlist
+                ],
+                name=playlist,
+                marker_color="rgb(129,180,227)",
+            )
+        )
+    fig.update_traces(boxpoints="all")  # show all points
+    fig.update_layout(
+        showlegend=False,
+        xaxis_tickangle=-30,
+        title="Distribution of track popularity",
+        xaxis_title="Playlist",
+    )
+
+    saved_image_location = "{0}/{1}/{2}/".format(
+        Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
+    )
+    os.makedirs(saved_image_location, exist_ok=True)
+    fig.write_html(saved_image_location + "track_popularity.html")
+    return saved_image_location

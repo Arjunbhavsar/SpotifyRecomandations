@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path
 
 from spotify_manager.views.follow_create import get_follow_data
-from spotify_manager.views.mongo_dump import (
-    decompress_and_upload_to_mongo,
-    # dump_streaming_history,
-)
+from spotify_manager.views.mongo_dump import decompress_and_upload_to_mongo
 
-from spotify_manager.views.visualizations import get_liked_disliked_graphs, get_acoustics_chart, get_top_artists
+from spotify_manager.views.visualizations import (
+    get_liked_disliked_graphs,
+    get_acoustics_chart,
+    get_top_artists,
+    get_track_popularity,
+)
 
 urlpatterns = [
     # url(r"^follow/create", create_follow),
@@ -31,6 +33,7 @@ urlpatterns = [
     url(r"^user/(?P<user_id>\w+)/likes", get_liked_disliked_graphs),
     url(r"^user/(?P<user_id>\w+)/acoustics", get_acoustics_chart),
     url(r"^user/(?P<user_id>\w+)/artists", get_top_artists),
+    url(r"^user/(?P<user_id>\w+)/popularity", get_track_popularity),
     # url(r"^user/sh/dump", dump_streaming_history),
     url(r"^user/(?P<user_id>\w+)/follow", get_follow_data),
     path("admin/", admin.site.urls),
