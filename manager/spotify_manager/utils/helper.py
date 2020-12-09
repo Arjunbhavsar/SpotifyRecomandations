@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 
 columns = (
@@ -235,4 +236,131 @@ def get_feature_lists(audio_features1, audio_features2, user_id) -> str:
     plt.savefig(saved_image_location + "acoustics.png")
     plt.close()
 
+    return saved_image_location
+
+
+def get_user_playlists(user_id, sp):
+    my_playlists = pd.DataFrame(columns=["id", "spotify_id", "list_name"])
+    playlists = sp.user_playlists(user_id)
+    while playlists:
+        for i, playlist in enumerate(playlists["items"]):
+            spotify_id = playlist["id"]
+            list_name = playlist["name"]
+            my_playlists = my_playlists.append(
+                {"id": i + 1, "spotify_id": spotify_id, "list_name": list_name},
+                ignore_index=True,
+            )
+
+        if playlists["next"]:
+            playlists = sp.next(playlists)
+        else:
+            playlists = None
+
+    return my_playlists
+
+
+def get_user_playlists_songs(user_playlists, user_id, sp):
+    user_tracks = pd.DataFrame(
+        columns=[
+            "list_id",
+            "song_id",
+            "song_name",
+            "artist",
+            "popularity",
+            "release_date",
+        ]
+    )
+    for list_id in user_playlists["spotify_id"]:
+        songs = []
+        content = sp.user_playlist_tracks(
+            user_id, list_id, fields=None, limit=100, offset=0, market=None
+        )
+        songs += content["items"]
+        for song in songs:
+            user_tracks = user_tracks.append(
+                {
+                    "list_id": list_id,
+                    "song_id": song["track"]["id"],
+                    "song_name": song["track"]["name"],
+                    "artist": song["track"]["artists"][0]["name"],
+                    "popularity": song["track"]["popularity"],
+                    "release_date": song["track"]["album"]["release_date"],
+                },
+                ignore_index=True,
+            )
+    return user_tracks
+
+
+def get_track_features(tracks, sp):
+    user_tracks_features = pd.DataFrame(
+        columns=[
+            "song_id",
+            "energy",
+            "liveness",
+            "tempo",
+            "speechiness",
+            "acousticness",
+            "instrumentalness",
+            "danceability",
+            "duration_ms",
+            "loudness",
+            "valence",
+            "mode",
+            "key",
+        ]
+    )
+    for song in tracks["song_id"]:
+        features = sp.audio_features(tracks=[song])[0]
+        user_tracks_features = user_tracks_features.append(
+            {
+                "song_id": song,
+                "energy": features["energy"],
+                "liveness": features["liveness"],
+                "tempo": features["tempo"],
+                "speechiness": features["speechiness"],
+                "acousticness": features["acousticness"],
+                "instrumentalness": features["instrumentalness"],
+                "danceability": features["danceability"],
+                "duration_ms": features["duration_ms"],
+                "loudness": features["loudness"],
+                "valence": features["valence"],
+                "mode": features["mode"],
+                "key": features["key"],
+            },
+            ignore_index=True,
+        )
+
+    return user_tracks_features
+
+
+def get_top_artists_for_user(playlist_artist_filter, user_id):
+    fig = go.Figure(
+        data=[
+            go.Bar(
+                name="Number of Song",
+                x=playlist_artist_filter.artist,
+                y=playlist_artist_filter.song_id,
+                marker_color="rgb(129,180,227)",
+            ),
+            go.Bar(
+                name="Number of Playlist",
+                x=playlist_artist_filter.artist,
+                y=playlist_artist_filter.list_id,
+                marker_color="rgb(76,153,160)",
+            ),
+        ]
+    )
+    # Change the bar mode
+    fig.update_layout(
+        barmode="group",
+        xaxis_tickangle=-45,
+        title="Number of song and number of playlist per artist",
+        xaxis_title="Artist",
+    )
+
+    saved_image_location = "{0}/{1}/{2}/".format(
+        Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
+    )
+    os.makedirs(saved_image_location, exist_ok=True)
+    fig.write_html(saved_image_location + "top_artists.html")
     return saved_image_location

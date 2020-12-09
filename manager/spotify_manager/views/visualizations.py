@@ -7,9 +7,17 @@ from rest_framework.response import Response
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+import pandas as pd
 
 from spotify_manager.apps import s3
-from spotify_manager.utils.helper import get_audio_features, get_feature_lists
+from spotify_manager.utils.helper import (
+    get_audio_features,
+    get_feature_lists,
+    get_user_playlists,
+    get_user_playlists_songs,
+    get_track_features,
+    get_top_artists_for_user,
+)
 
 columns = (
     "songName",
@@ -86,13 +94,13 @@ def get_liked_disliked_graphs(request, user_id):
     s3.client.upload_file(
         saved_image_location + "likes_dislikes.png",
         os.environ["BUCKET_NAME"],
-        user_id + "/likes_dislikes.png",
-        {"ACL": "public-read"}
+        "{0}-{1}".format(user_id, "likes_dislikes.png"),
+        {"ACL": "public-read", "ContentType": "image/png"},
     )
 
     return Response(
         data={
-            "image": base_url + user_id + "/likes_dislikes.png",
+            "image": base_url + "{0}-{1}".format(user_id, "likes_dislikes.png"),
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
@@ -113,22 +121,69 @@ def get_acoustics_chart(request, user_id):
     s3.client.upload_file(
         saved_image_location + "acoustics.png",
         os.environ["BUCKET_NAME"],
-        user_id + "/acoustics.png",
-        {"ACL": "public-read"}
+        "{0}-{1}".format(user_id, "acoustics.png"),
+        {"ACL": "public-read", "ContentType": "image/png"},
     )
 
     return Response(
         data={
-            "image": base_url + user_id + "/acoustics.png",
+            "image": base_url + "{0}-{1}".format(user_id, "acoustics.png"),
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
     )
 
 
-# @api_view(["GET"])
-# def get_something(request, user_id):
-#     s3.client.upload_file(
-#         ""
-#         os.environ["BUCKET_NAME"],
-#     )
+@api_view(["GET"])
+def get_top_artists(request, user_id):
+    auth_token = request.META.get("HTTP_AUTHORIZATION", None)
+    sp = spotipy.Spotify(auth=auth_token)
+    user_playlists = get_user_playlists(user_id=user_id, sp=sp)
+    playlists_with_songs = get_user_playlists_songs(
+        user_playlists=user_playlists, user_id=user_id, sp=sp
+    )
+    track_features = get_track_features(tracks=playlists_with_songs, sp=sp)
+    song_feature = pd.merge(
+        playlists_with_songs,
+        track_features,
+        how="left",
+        left_on="song_id",
+        right_on="song_id",
+    )
+    list_song_feature = pd.merge(
+        user_playlists,
+        song_feature,
+        how="left",
+        left_on="spotify_id",
+        right_on="list_id",
+    )
+    list_song_feature["popularity"] = pd.to_numeric(
+        list_song_feature["popularity"], downcast="integer"
+    )
+    playlist_artist = (
+        list_song_feature.groupby("artist", as_index=True)["song_id", "list_id"]
+        .nunique()
+        .sort_values(by=["song_id", "list_id"], ascending=False)
+    )
+    playlist_artist = playlist_artist.reset_index(level="artist")
+    playlist_artist_filter = playlist_artist[
+        (playlist_artist["song_id"] > 1) | (playlist_artist["list_id"] > 1)
+    ]
+    saved_image_location = get_top_artists_for_user(
+        playlist_artist_filter=playlist_artist_filter, user_id=user_id
+    )
+
+    s3.client.upload_file(
+        saved_image_location + "top_artists.html",
+        os.environ["BUCKET_NAME"],
+        "{0}-{1}".format(user_id, "top_artists.html"),
+        {"ACL": "public-read", "ContentType": "text/html"},
+    )
+
+    return Response(
+        data={
+            "image": base_url + "{0}-{1}".format(user_id, "top_artists.html"),
+            "description": "something something something",
+        },
+        status=status.HTTP_200_OK,
+    )

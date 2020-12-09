@@ -6,6 +6,7 @@
 *.prof
 *.pkl
 *.png
+*.html
 templates
 temp/
 .pytest_cache

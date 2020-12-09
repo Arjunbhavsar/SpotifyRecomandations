@@ -23,13 +23,14 @@ from spotify_manager.views.mongo_dump import (
     # dump_streaming_history,
 )
 
-from spotify_manager.views.visualizations import get_liked_disliked_graphs, get_acoustics_chart
+from spotify_manager.views.visualizations import get_liked_disliked_graphs, get_acoustics_chart, get_top_artists
 
 urlpatterns = [
     # url(r"^follow/create", create_follow),
     url(r"^user/dump", decompress_and_upload_to_mongo),
     url(r"^user/(?P<user_id>\w+)/likes", get_liked_disliked_graphs),
     url(r"^user/(?P<user_id>\w+)/acoustics", get_acoustics_chart),
+    url(r"^user/(?P<user_id>\w+)/artists", get_top_artists),
     # url(r"^user/sh/dump", dump_streaming_history),
     url(r"^user/(?P<user_id>\w+)/follow", get_follow_data),
     path("admin/", admin.site.urls),
