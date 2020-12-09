@@ -5,6 +5,7 @@
 .vscode
 *.prof
 *.pkl
+*.png
 templates
 temp/
 .pytest_cache

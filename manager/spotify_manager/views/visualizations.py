@@ -71,17 +71,17 @@ def get_liked_disliked_graphs(request, user_id):
         index += 1
 
     result_fig = result_fig.get_figure()
-    saved_image_location = "{0}/{1}/{2}".format(
+    saved_image_location = "{0}/{1}/{2}/".format(
         Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
     )
     os.makedirs(saved_image_location, exist_ok=True)
-    result_fig.savefig(saved_image_location + "likes_dislikes.png")
+    result_fig.savefig(saved_image_location + "/likes_dislikes.png")
     plt.ioff()
     plt.close()
 
     return Response(
         data={
-            "image": saved_image_location + "likes_dislikes.png",
+            "image": "/" + user_id + "/likes_dislikes.png",
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
