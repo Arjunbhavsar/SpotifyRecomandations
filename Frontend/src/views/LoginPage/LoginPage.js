@@ -45,6 +45,7 @@ export default function LoginPage(props) {
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>Login</h4>
+                    <i className={"fab fa-spotify"} size={60}/>
                     <div className={classes.socialLine}>
                       <Button
                           justIcon
@@ -52,7 +53,7 @@ export default function LoginPage(props) {
                           target="_blank"
                           color="transparent"
                           onClick={e => e.preventDefault()}>
-                        {/* <i className={"fab fa-spotify"} /> */}
+                        
                         <SpotifyLoginComponent />
                       </Button>
                     </div>

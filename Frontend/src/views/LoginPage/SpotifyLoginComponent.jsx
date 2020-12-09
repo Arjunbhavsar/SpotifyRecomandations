@@ -20,6 +20,7 @@ export default class SpotifyLoginComponent extends Component {
         this.onSuccess = this.onSuccess.bind(this);
         this.onFailure = this.onFailure.bind(this);
         this.fetchUserDetails = this.fetchUserDetails.bind(this);
+        this.handleSuccessResponse = this.handleSuccessResponse.bind(this);
     }
 
     registerSession = () =>{
@@ -60,16 +61,20 @@ export default class SpotifyLoginComponent extends Component {
         if(response.access_token !== null || response.access_token !== ''){
             sessionStorage.setItem('authenticatedUsertoken',response.access_token)
             this.fetchUserDetails(response.access_token)
-            .then(res => {
-                if(res.status === 200) {
-                    console.log('Register Successful')
-                    console.log(res)
-                    sessionStorage.setItem('authenticatedUserId',res.data.id)
-                    sessionStorage.setItem('authenticatedUserEmail',res.data.email)
-                    //this.props.history.push("/")
-                }
-            })
+            .then(response => this.handleSuccessResponse(response))
             .catch(console.log("Error fetching user details"))
+        }
+    }
+
+    handleSuccessResponse(res){
+        if(res.status === 200) {
+            console.log('Register Successful')
+            console.log(res)
+            sessionStorage.setItem('authenticatedUserId',res.data.id)
+            //sessionStorage.setItem('authenticatedUserEmail',res.data.email)
+            // this.props.history.push('/');
+            window.location.reload()
+            
         }
     }
     onFailure = () => console.log("Failure");

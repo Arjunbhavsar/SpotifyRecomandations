@@ -1,7 +1,7 @@
 import React,{ Component } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch} from "react-router-dom";
 
 import "assets/scss/material-kit-react.scss?v=1.9.0";
 
@@ -18,36 +18,38 @@ import UserDataPlots from "./Components/Sections/UserDataPlots.js";
 
 var hist = createBrowserHistory();
 
-export default function Routes(props) {
+//export default function Routes(props) {
+class Routes extends Component {
+        // const { ...rest } = props; 
+        render() { 
+            
+        return (
+            <Router history={hist}>
+                <Header
+                    brand="Spotify Data Analysis"
+                    rightLinks={<HeaderLinks />}
+                    fixed
+                    color="transparent"
+                    changeColorOnScroll={{
+                    height: 400,
+                    color: "white"
+                    }}
+                    {...this.props}
+                />
+                <Switch>
+                <Route path="/landing-page" component={LandingPage}/>
+                <Route path="/profile-page" component={ProfilePage} />
+                <Route path="/login-page"   component={LoginPage} />
+                <Route path="/aboutus"      component={AboutUs} />
+                <Route path="/commonPlots"  component={Commonplots} />
+                <Route path="/userVisuals"  component={UserDataPlots} />
+                <Route path="/"             component={Components} />
+                </Switch>
 
-    
-    const { ...rest } = props;      
-    return (
-        <Router history={hist}>
-            <Header
-                brand="Spotify Recomendation System"
-                rightLinks={<HeaderLinks />}
-                fixed
-                color="transparent"
-                changeColorOnScroll={{
-                height: 400,
-                color: "white"
-                }}
-                {...rest}
-            />
-            <Switch>
-            <Route path="/landing-page" component={LandingPage}/>
-            <Route path="/profile-page" component={ProfilePage} />
-            <Route path="/login-page"   component={LoginPage} />
-            <Route path="/aboutus"      component={AboutUs} />
-            <Route path="/commonPlots"  component={Commonplots} />
-            <Route path="/userVisuals"  component={UserDataPlots} />
-            <Route path="/"             component={Components} />
-            </Switch>
-
-        </Router>
-    );
+            </Router>
+        );
+    }
 }
 
 
-// export default Routes
+export default Routes;  

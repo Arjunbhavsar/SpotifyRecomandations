@@ -63,9 +63,9 @@ export default function SpotifyDetails() {
                         <GridContainer style={style.items}>
                             <GridItem xs={12} sm={12} md={4}>
                                 <InfoArea
-                                    title="Song Recommendations"
-                                    description="With our recomendation system users can find the all relevent Songs that suits their needs.
-                                                Application can help provide the most relevent Songs that you would love to listen in diffrent moods."
+                                    title="Spotify User Data Analysis"
+                                    description="With our Data Analysis system users can analyse their music streaming habits.
+                                                Application is integrated with spotify to fetch user data and make useful analysis."
                                     icon={DescriptionIcon}
                                     iconColor="info"
                                     vertical
@@ -73,9 +73,9 @@ export default function SpotifyDetails() {
                             </GridItem>
                             <GridItem xs={12} sm={12} md={4}>
                                 <InfoArea
-                                    title="Verified Artists"
-                                    description="All of the Singers on our network are verified and trusted. We do the research
-                                                  for you. Each Song you see is created by the authenticated Artist who is verified through login process"
+                                    title="Spotify Music Trends "
+                                    description="Our system analyses music trends from diffrent timelines such as last decade(2010-2019), past year(2019) and also 
+                                                  trends during festivals(Christmas). We analyse music on variaty of factors such as beats per minute, dancaebility, energy, Song Popularity, and Song duration, etc."
                                     icon={VerifiedUser}
                                     iconColor="success"
                                     vertical
@@ -85,8 +85,7 @@ export default function SpotifyDetails() {
                                 <InfoArea
                                     title="Secure"
                                     description="Your information security is our top priority. Any data regarding our users 
-                                                  are strictly kept within the system and affiliated Employers. Third-party authorization
-                                                  and sales of personal information is strictly forbidden."
+                                                  are strictly kept within the system. Sensitive data is encrypted before storing it in the system."
                                     icon={Fingerprint}
                                     iconColor="danger"
                                     vertical

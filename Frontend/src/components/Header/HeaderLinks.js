@@ -17,20 +17,23 @@ import { Apps, CloudDownload } from "@material-ui/icons";
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
-
+import AuthenticatedService from 'views/Components/Sections/AuthenticatedService.js';
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
 
-
-
-
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const isUserLoggedIn = AuthenticatedService.isUserLoggedIn();
+  
+  const handleLogout = () => {
+    AuthenticatedService.logout();
+    window.location.reload() // temp solution to user API call bug
+  };
+
   return (
     <List className={classes.list}>
        
-
 
       <ListItem className={classes.listItem}>
         <Link to="/" >
@@ -42,7 +45,6 @@ export default function HeaderLinks(props) {
         </Link>
       </ListItem>
 
-
       <ListItem className={classes.listItem}>
         <Link to="/commonPlots" >
           <Button 
@@ -52,7 +54,7 @@ export default function HeaderLinks(props) {
           </Button>
         </Link>
       </ListItem>
-
+      {isUserLoggedIn && 
       <ListItem className={classes.listItem}>
         <Link to="/userVisuals" >
           <Button 
@@ -61,7 +63,31 @@ export default function HeaderLinks(props) {
             User Data Visuals 
           </Button>
         </Link>
-      </ListItem>
+      </ListItem>}
+
+      {!isUserLoggedIn && 
+      <ListItem className={classes.listItem}>
+        <Link to="/login-page" >
+          <Button 
+            color="Black"
+            target="_blank">
+            Login 
+          </Button>
+        </Link>
+      </ListItem>}
+
+      {isUserLoggedIn && 
+      <ListItem className={classes.listItem}>
+        <Link to="/logout" >
+          <Button 
+            color="Black"
+            target="_blank"
+            onClick={handleLogout}>
+            Logout 
+          </Button>
+        </Link>
+      </ListItem>}
+{/* 
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
@@ -87,7 +113,7 @@ export default function HeaderLinks(props) {
           </Link>
           ]}
         />
-      </ListItem> 
+      </ListItem>  */}
     
     </List>
   );

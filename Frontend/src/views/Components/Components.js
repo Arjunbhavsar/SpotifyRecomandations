@@ -13,6 +13,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
+
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SpotifyDetails from "./Sections/SpotifyDetails.js"
@@ -39,7 +40,7 @@ export default function Components(props) {
   return (
     <div>
       <Header
-        brand="Spotify Recomendation System"
+        brand="Spotify Data Analysis"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
