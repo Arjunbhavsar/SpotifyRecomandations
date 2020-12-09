@@ -2,11 +2,11 @@ Comparison of liked/disliked songs by user based on song features - We compare a
 
 Comparison of liked/disliked songs by user based on song features - These are 8 graphs where Y axis is the density while X-axis is danceability, energy, loudness, speechiness, acousticness, valence, instrumentalness and tempo respectively. The Green color bars indicates the data related to liked songs while blue colored bars indicate data related to disliked songs. These graphs indicate user preference towards certain features.
 
-Top artists graph- This bar graph shows the most liked artists by the user. This graph also compares whether the user only likes the song from this artist or he/she also adds these songs in the user made playlist.
+Favorite artists comparison - This bar graph shows the most liked artists by the user. This graph also compares whether the user only likes the song from this artist or he/she also adds these songs in the user made playlist.
 
-track popularity - This graph does the analysis of user made playlists. It takes all the songs from a playlist and checks their overall popularity to create a box and whisker plot. This graphs helps in understading if the user only likes popular songs or some unpopular songs as well. Also, if the playlist are made based on the popularity of the songs or not.
+Playlist comparison based on track popularity - This graph does the analysis of user made playlists. It takes all the songs from a playlist and checks their overall popularity to create a box and whisker plot. This graphs helps in understading if the user only likes popular songs or some unpopular songs as well. Also, if the playlist are made based on the popularity of the songs or not.
 
-Song release date graph - This bar graph takes into account all the songs in user library. This graph shows the count og songs based on the relese year of that track. This helps in analysing the user preference based on the era of songs. For example - if most of the songs have release dates in near past say last 5 years then it can be concluded that user likes newly released tracks more and then more such songs can be suggested in future.
+Liked songs comparison based on release date  - This bar graph takes into account all the songs in user library. This graph shows the count of songs based on the relese year of that track. This helps in analysing the user preference based on the era of songs. For example - if most of the songs have release dates in near past say last 5 years then it can be concluded that user likes newly released tracks more and then more such songs can be suggested in future.
 
 Song feature description -
 acousticness - A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
