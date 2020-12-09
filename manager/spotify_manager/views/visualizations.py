@@ -7,6 +7,8 @@ from rest_framework.response import Response
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+
+from spotify_manager.apps import s3
 from spotify_manager.utils.helper import get_audio_features, get_feature_lists
 
 columns = (
@@ -20,6 +22,8 @@ columns = (
     "instrumentalness",
     "tempo",
 )
+
+base_url = "https://{0}.s3.us-east-2.amazonaws.com/".format(os.environ["BUCKET_NAME"])
 
 
 @api_view(["GET"])
@@ -75,13 +79,20 @@ def get_liked_disliked_graphs(request, user_id):
         Path(__file__).parents[3], "Frontend/src/assets/img/userData", user_id
     )
     os.makedirs(saved_image_location, exist_ok=True)
-    result_fig.savefig(saved_image_location + "/likes_dislikes.png")
+    result_fig.savefig(saved_image_location + "likes_dislikes.png")
     plt.ioff()
     plt.close()
 
+    s3.client.upload_file(
+        saved_image_location + "likes_dislikes.png",
+        os.environ["BUCKET_NAME"],
+        user_id + "/likes_dislikes.png",
+        {"ACL": "public-read"}
+    )
+
     return Response(
         data={
-            "image": "/" + user_id + "/likes_dislikes.png",
+            "image": base_url + user_id + "/likes_dislikes.png",
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
@@ -98,10 +109,26 @@ def get_acoustics_chart(request, user_id):
         audio_features2=audio_features2,
         user_id=user_id,
     )
+
+    s3.client.upload_file(
+        saved_image_location + "acoustics.png",
+        os.environ["BUCKET_NAME"],
+        user_id + "/acoustics.png",
+        {"ACL": "public-read"}
+    )
+
     return Response(
         data={
-            "image": saved_image_location,
+            "image": base_url + user_id + "/acoustics.png",
             "description": "something something something",
         },
         status=status.HTTP_200_OK,
     )
+
+
+# @api_view(["GET"])
+# def get_something(request, user_id):
+#     s3.client.upload_file(
+#         ""
+#         os.environ["BUCKET_NAME"],
+#     )

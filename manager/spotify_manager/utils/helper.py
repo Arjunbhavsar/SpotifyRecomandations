@@ -235,4 +235,4 @@ def get_feature_lists(audio_features1, audio_features2, user_id) -> str:
     plt.savefig(saved_image_location + "acoustics.png")
     plt.close()
 
-    return "/" + user_id + "/acoustics.png"
+    return saved_image_location
